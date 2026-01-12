@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Biblia PDT - Términos, Privacidad y Eliminación de Datos</title>
+  <style>
+    :root {
+      --primary: #CBAF91;
+      --primary-dark: #B89A7A;
+      --primary-light: #E5D4BE;
+      --dark: #1f2937;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-600: #4b5563;
+      --gray-700: #374151;
+      --white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);
+      color: var(--dark);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      background: var(--white);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      padding: 1.25rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 1.4rem;
+      transition: transform 0.3s ease;
+    }
+
+    .brand:hover {
+      transform: translateY(-2px);
+    }
+
+    .icon {
+      width: 32px;
+      height: 32px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--gray-600);
+      font-weight: 500;
+      transition: color 0.3s ease;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    /* HERO SECTION */
+    .hero {
+      background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+      padding: 4rem 0;
+      margin-bottom: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,138.7C960,139,1056,117,1152,101.3C1248,85,1344,75,1392,69.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
+      background-size: cover;
+    }
+
+    .hero-content {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      color: var(--white);
+      margin-bottom: 1rem;
+      font-weight: 800;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: rgba(255,255,255,0.95);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* MAIN */
+    .main {
+      padding: 2rem 0 4rem;
+    }
+
+    .content-wrapper {
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    /* TABLE OF CONTENTS */
+    .toc {
+      position: sticky;
+      top: 100px;
+      background: var(--white);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    }
+
+    .toc h3 {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--gray-600);
+      margin-bottom: 1rem;
+    }
+
+    .toc ul {
+      list-style: none;
+    }
+
+    .toc li {
+      margin-bottom: 0.5rem;
+    }
+
+    .toc a {
+      text-decoration: none;
+      color: var(--gray-700);
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      display: block;
+      padding: 0.4rem 0.6rem;
+      border-radius: 6px;
+    }
+
+    .toc a:hover {
+      color: var(--primary);
+      background: var(--gray-50);
+      padding-left: 1rem;
+    }
+
+    /* CARD */
+    .card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 3rem;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1.25rem;
+      color: var(--primary);
+      font-weight: 700;
+      padding-bottom: 0.75rem;
+      border-bottom: 3px solid var(--primary-light);
+    }
+
+    h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.75rem;
+      color: var(--dark);
+      font-weight: 600;
+    }
+
+    p {
+      margin-bottom: 1.25rem;
+      color: var(--gray-700);
+      font-size: 1.05rem;
+    }
+
+    ul {
+      margin-left: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    li {
+      margin-bottom: 0.6rem;
+      color: var(--gray-700);
+      font-size: 1.05rem;
+    }
+
+    .section {
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .section:last-child {
+      border-bottom: none;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .info-box {
+      background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);
+      border: 2px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 1.75rem;
+      transition: all 0.3s ease;
+    }
+
+    .info-box:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(203, 175, 145, 0.15);
+      border-color: var(--primary-light);
+    }
+
+    .info-box h3 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .info-box ul {
+      margin-left: 1.2rem;
+    }
+
+    /* CONTACT BOX */
+    .contact-box {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: var(--white);
+      padding: 2rem;
+      border-radius: 12px;
+      margin-top: 2rem;
+      text-align: center;
+    }
+
+    .contact-box h3 {
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+
+    .contact-box p {
+      color: rgba(255,255,255,0.95);
+    }
+
+    .contact-box a {
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 600;
+      border-bottom: 2px solid rgba(255,255,255,0.5);
+      transition: border-color 0.3s ease;
+    }
+
+    .contact-box a:hover {
+      border-bottom-color: var(--white);
+    }
+
+    /* FOOTER */
+    .footer {
+      background: var(--dark);
+      color: var(--gray-200);
+      padding: 3rem 0 1.5rem;
+      margin-top: 4rem;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-section h4 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+
+    .footer-section ul {
+      list-style: none;
+      margin: 0;
+    }
+
+    .footer-section li {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-section a {
+      color: var(--gray-200);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-section a:hover {
+      color: var(--primary-light);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.9rem;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 968px) {
+      .content-wrapper {
+        grid-template-columns: 1fr;
+      }
+
+      .toc {
+        position: static;
+        margin-bottom: 2rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      .card {
+        padding: 2rem 1.5rem;
+      }
+    }
+
+    /* SCROLL TO TOP */
+    .scroll-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--primary);
+      color: var(--white);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      z-index: 999;
+    }
+
+    .scroll-top.visible {
+      opacity: 1;
+    }
+
+    .scroll-top:hover {
+      background: var(--primary-dark);
+      transform: translateY(-3px);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="navbar">
+    <div class="container">
+      <div class="nav-content">
+        <a href="#" class="brand">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+          </svg>
+          Biblia PDT
+        </a>
+        <ul class="nav-links">
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#privacidad">Privacidad</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Términos, Privacidad y Eliminación de Datos</h1>
+        <p>Tu privacidad y transparencia son nuestra prioridad. Lee cómo protegemos tus datos.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="container">
+      <div class="content-wrapper">
+        
+        <!-- TABLE OF CONTENTS -->
+        <aside class="toc">
+          <h3>Contenido</h3>
+          <ul>
+            <li><a href="#uso">1. Uso de la Aplicación</a></li>
+            <li><a href="#almacenamiento">2. Almacenamiento</a></li>
+            <li><a href="#notificaciones">3. Notificaciones</a></li>
+            <li><a href="#publicidad">4. Publicidad</a></li>
+            <li><a href="#eliminacion">5. Eliminación de Datos</a></li>
+            <li><a href="#privacidad">6. Privacidad</a></li>
+            <li><a href="#contacto">7. Contacto</a></li>
+          </ul>
+        </aside>
+
+        <!-- CONTENT -->
+        <div class="card">
+          <section class="section" id="uso">
+            <h2>1. Uso de la Aplicación Biblia PDT</h2>
+            <p>La aplicación Biblia PDT está diseñada para la lectura, estudio y uso personal de la Biblia. Nuestra plataforma ofrece una experiencia completa sin requerir la creación de una cuenta obligatoria para su funcionamiento básico, respetando tu privacidad desde el primer momento.</p>
+          </section>
+
+          <section class="section" id="almacenamiento">
+            <h2>2. Almacenamiento de Datos</h2>
+            <p>Utilizamos dos tipos de almacenamiento para ofrecerte la mejor experiencia:</p>
+            <div class="grid">
+              <div class="info-box">
+                <h3>📱 Datos Locales</h3>
+                <ul>
+                  <li>Marcadores y versículos guardados</li>
+                  <li>Historial de lectura personalizado</li>
+                  <li>Preferencias de tema, fuente e idioma</li>
+                  <li>Notas personales y subrayados</li>
+                </ul>
+              </div>
+              <div class="info-box">
+                <h3>☁️ Datos en el Backend</h3>
+                <ul>
+                  <li>Token de suscripción para notificaciones</li>
+                  <li>Configuración de recordatorios bíblicos</li>
+                  <li>Sincronización de planes de lectura</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section class="section" id="notificaciones">
+            <h2>3. Notificaciones</h2>
+            <p>Si decides activar las notificaciones, registramos un identificador anónimo en nuestro backend únicamente para el envío de:</p>
+            <ul>
+              <li>Recordatorios diarios de lectura bíblica</li>
+              <li>Notificaciones de planes de lectura personalizados</li>
+              <li>Versículos del día y mensajes inspiracionales</li>
+              <li>Actualizaciones importantes de la aplicación</li>
+            </ul>
+            <p>Este identificador no contiene información personal y puede ser eliminado en cualquier momento.</p>
+          </section>
+
+          <section class="section" id="publicidad">
+            <h2>4. Publicidad y Mediación</h2>
+            <p>Para mantener la aplicación gratuita y continuar con su desarrollo activo, utilizamos servicios de publicidad de terceros confiables:</p>
+            <ul>
+              <li><strong>Facebook Audience Network:</strong> Red publicitaria con estándares de privacidad certificados</li>
+              <li><strong>Unity Ads:</strong> Plataforma de anuncios optimizada para aplicaciones móviles</li>
+            </ul>
+            <p>Estos servicios pueden recopilar identificadores publicitarios de acuerdo con sus propias políticas de privacidad, las cuales te recomendamos revisar.</p>
+          </section>
+
+          <section class="section" id="eliminacion">
+            <h2>5. Eliminación de Datos</h2>
+            <p>Respetamos tu derecho a eliminar tu información. Puedes solicitar la eliminación completa de tus datos de las siguientes maneras:</p>
+            <ul>
+              <li><strong>Desinstalación:</strong> Al desinstalar la aplicación, todos los datos locales se eliminan automáticamente</li>
+              <li><strong>Desactivación de notificaciones:</strong> Elimina tus tokens de notificación desde la configuración de la app</li>
+              <li><strong>Solicitud por email:</strong> Contáctanos y procesaremos tu solicitud en un plazo máximo de 48 horas</li>
+            </ul>
+            <p>Una vez procesada tu solicitud, todos los datos asociados serán eliminados permanentemente de nuestro backend sin posibilidad de recuperación.</p>
+          </section>
+
+          <section class="section" id="privacidad">
+            <h2>6. Compromiso de Privacidad</h2>
+            <p><strong>Biblia PDT nunca vende, alquila ni comparte información personal con terceros.</strong> Toda la información recopilada se utiliza exclusivamente para:</p>
+            <ul>
+              <li>Mejorar la experiencia de usuario dentro de la aplicación</li>
+              <li>Proporcionar funcionalidades personalizadas</li>
+              <li>Enviar notificaciones que hayas autorizado</li>
+              <li>Mantener y mejorar nuestros servicios</li>
+            </ul>
+            <p>Nos comprometemos a la transparencia total en el manejo de tus datos y al cumplimiento de todas las regulaciones de privacidad aplicables.</p>
+          </section>
+
+          <section class="section" id="contacto">
+            <h2>7. Contacto</h2>
+            <div class="contact-box">
+              <h3>¿Necesitas ayuda o tienes preguntas?</h3>
+              <p>Estamos aquí para ayudarte. Si tienes preguntas sobre estos términos, deseas solicitar la eliminación de datos o necesitas soporte técnico, contáctanos:</p>
+              <p style="margin-top: 1.5rem;"><strong>Email de soporte:</strong> <a href="mailto:soporte@bibliapdt.app">soporte@bibliapdt.app</a></p>
+              <p style="margin-bottom: 0;">Tiempo de respuesta: 24-48 horas</p>
+            </div>
+          </section>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4>Biblia PDT</h4>
+          <p>Tu compañera digital para el estudio y lectura de la Palabra de Dios.</p>
+        </div>
+        <div class="footer-section">
+          <h4>Enlaces Rápidos</h4>
+          <ul>
+            <li><a href="#uso">Términos de Uso</a></li>
+            <li><a href="#privacidad">Política de Privacidad</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="#eliminacion">Eliminación de Datos</a></li>
+            <li><a href="#publicidad">Publicidad</a></li>
+            <li><a href="#notificaciones">Notificaciones</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © 2026 Biblia PDT. Todos los derechos reservados.
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCROLL TO TOP -->
+  <div class="scroll-top" id="scrollTop">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+  </div>
+
+  <script>
+    // Scroll to top button
+    const scrollTop = document.getElementById('scrollTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollTop.classList.add('visible');
+      } else {
+        scrollTop.classList.remove('visible');
+      }
+    });
+
+    scrollTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
